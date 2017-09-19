@@ -1,0 +1,79 @@
+---
+title: "Pata szín vizsgálat"
+author: "Menyhárt László"
+date: '2017 szeptember 18 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Ásványi anyagok
+### Azonos színű (szürke) első és hátsó paták közötti különbség
+
+Az első és a hátsó szürke patákat összetartozó mintás t-próbával hasonlítottuk össze kétoldali ellenhipotézist használva. Az alábbi p-értékek azt mutatják, hogy az első és hátsó paták között **egyik anyag tekintetében sincs** szignifikáns különbség.
+
+```{r include=FALSE}
+setwd("E:/amunka/BartosA")
+load("asv.RData")
+anyag=c("sza","nyzsir","ca","p","cu","zn")
+pval=c()
+# Different between from and rear hoots in case of the same color (grey)
+pval=c(pval,t.test(asv$sza_eSz,asv$sza_hSz,paired=TRUE)$p.value) # szárazanyagtartalom p=0.75
+pval=c(pval,t.test(asv$nyzsir_eSz,asv$nyzsir_hSz,paired=TRUE)$p.value) # nyerszsír p=0.62
+pval=c(pval,t.test(asv$ca_eSz,asv$ca_hSz,paired=TRUE)$p.value)  # kalcium p=0.58
+pval=c(pval,t.test(asv$p_eSz,asv$p_hSz,paired=TRUE)$p.value)    # foszfor p=0.77
+pval=c(pval,t.test(asv$cu_eSz,asv$cu_hSz,paired=TRUE)$p.value)   # réz p=0.53
+pval=c(pval,t.test(asv$zn_eSz,asv$zn_hSz,paired=TRUE)$p.value)   # p=0.42
+eredm=data.frame(anyag,p=pval)
+```
+
+```{r warning=FALSE}
+library(knitr)
+kable(eredm)
+```
+
+### Különböző színű hátsó paták közötti különbség
+
+Ha az eltérő színű hátsó patákat hasonlítjuk össze, akkor sem találunk szignifikáns eltérést **egyik anyagnál sem**.
+
+```{r include=FALSE}
+pval=c()
+pval=c(pval,t.test(asv$sza_hS,asv$sza_hSz,paired=TRUE)$p.value) # szárazanyagtartalom p=0.55
+pval=c(pval,t.test(asv$nyzsir_hS,asv$nyzsir_hSz,paired=TRUE)$p.value) # nyerszsír p=0.10
+pval=c(pval,t.test(asv$ca_hS,asv$ca_hSz,paired=TRUE)$p.value)  # kalcium p=0.14
+pval=c(pval,t.test(asv$p_hS,asv$p_hSz,paired=TRUE)$p.value)    # foszfor p=0.0076
+pval=c(pval,t.test(asv$cu_hS,asv$cu_hSz,paired=TRUE)$p.value)   # réz p=0.22
+pval=c(pval,t.test(asv$zn_hS,asv$zn_hSz,paired=TRUE)$p.value)   # p=0.06
+eredm=data.frame(anyag,p=pval)
+```
+
+```{r warning=FALSE}
+kable(eredm)
+```
+
+## Keménység és rugalmasság
+### Keménység
+A keménységadatokat a nagy szórás miatt nem hasonlítottuk össze. Három nagyságrendet ölelnek át az adatok, így különbség nem mutatható ki. 
+
+###Rugalmasság
+
+```{r include=FALSE}
+setwd("E:/amunka/BartosA")
+load("kemrug.RData")
+p1=round(t.test(kemrug$sze,kemrug$szh,paired=TRUE)$p.value,3)   # p=0.41
+p2=round(t.test(kemrug$sh,kemrug$szh,paired=TRUE)$p.value,3)   # p=0.98
+```
+
+Patánként a 6-6 mérésből átlagot számítottunk, majd ezeket összetartozó mintás t-próbával (kétoldali ellenhipotézis) hasonlítottuk össze. Sem az azonos színű első-hátsó (p=`r p1`), sem az eltérő színű hátsó paták (p=`r p2`) között nem találtunk szignifikáns eltérést.
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
