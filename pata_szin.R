@@ -36,7 +36,11 @@ t.test(asv$zn_eSz,asv$zn_hSz,paired=TRUE)   # p=0.42
 t.test(asv$sza_hS,asv$sza_hSz,paired=TRUE) # szárazanyagtartalom p=0.55
 t.test(asv$nyzsir_hS,asv$nyzsir_hSz,paired=TRUE) # nyerszsír p=0.10
 t.test(asv$ca_hS,asv$ca_hSz,paired=TRUE)  # kalcium p=0.14
+<<<<<<< HEAD
 t.test(asv$p_hS,asv$p_hSz,paired=TRUE)    # foszfor p=1
+=======
+t.test(asv$p_hS,asv$p_hSz,paired=TRUE)    # foszfor p=0.0076
+>>>>>>> 97ba5751252cd46ab9502346ae4cf88a7dc19a8a
 t.test(asv$cu_hS,asv$cu_hSz,paired=TRUE)   # réz p=0.22
 t.test(asv$zn_hS,asv$zn_hSz,paired=TRUE)   # p=0.06
 
@@ -47,6 +51,7 @@ kr <- readXL("E:/amunka/BartosA/pata_kemenyseg_rbe.xlsx", rownames=FALSE,
                   header=TRUE, na="", sheet="Sheet2", stringsAsFactors=FALSE)
 setwd("E:/amunka/BartosA")
 save(kr,file="kr.RData")
+<<<<<<< HEAD
 load("kr.RData")
 # patánként átlagszámolás
 kr$szineh=paste0(kr$szin,kr$eh)
@@ -62,6 +67,9 @@ load("kemrug.RData")
 t.test(kemrug$sze,kemrug$szh,paired=TRUE)   # p=0.41
 t.test(kemrug$sh,kemrug$szh,paired=TRUE)   # p=0.98
 
+=======
+load("asv.RData")
+>>>>>>> 97ba5751252cd46ab9502346ae4cf88a7dc19a8a
 
 # histogram
 hist(as.numeric(kr$kemenyseg))
@@ -70,6 +78,9 @@ boxplot(as.numeric(kr$kemenyseg))
 
 p=ggplot(kr,aes(x=szin,y=kemenyseg,color=eh))+geom_point()
 p
+<<<<<<< HEAD
 
 p=ggplot(kr,aes(x=szin,y=rugalmassag,color=eh))+geom_point()
 p
+=======
+>>>>>>> 97ba5751252cd46ab9502346ae4cf88a7dc19a8a

@@ -1,27 +1,22 @@
-﻿---
-
-title: "pata2"
+---
+title: "Pata szín vizsgálat"
 author: "Menyhárt László"
-date: '2017 szeptember 19 '
-output: pdf_document
+date: '2017 szeptember 18 '
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
-
-
 
 ## Ásványi anyagok
 ### Azonos színű (szürke) első és hátsó paták közötti különbség
 
 Az első és a hátsó szürke patákat összetartozó mintás t-próbával hasonlítottuk össze kétoldali ellenhipotézist használva. Az alábbi p-értékek azt mutatják, hogy az első és hátsó paták között **egyik anyag tekintetében sincs** szignifikáns különbség.
 
-
 ```{r include=FALSE}
 setwd("E:/amunka/BartosA")
 #setwd("C:/PE_GK/hoof")
-
 load("asv.RData")
 anyag=c("sza","nyzsir","ca","p","cu","zn")
 pval=c()
@@ -68,7 +63,6 @@ A keménységadatokat a nagy szórás miatt nem hasonlítottuk össze. Három na
 ```{r include=FALSE}
 #setwd("E:/amunka/BartosA")
 #setwd("C:/PE_GK/hoof")
-
 load("kemrug.RData")
 p1=round(t.test(kemrug$sze,kemrug$szh,paired=TRUE)$p.value,3)   # p=0.41
 p2=round(t.test(kemrug$sh,kemrug$szh,paired=TRUE)$p.value,3)   # p=0.98
@@ -79,20 +73,3 @@ Patánként a 6-6 mérésből átlagot számítottunk, majd ezeket összetartoz�
 ### Grafikonok keménységről és rugalmasságról
 
 Az alábbi ábrák szemléltetik, miért nem találtunk szignifikáns különbségeket.
-
-
-```{r rugalmassag, echo=FALSE}
-library(ggplot2)
-load("kr.RData")
-kr$pata2 <- kr$pata+ifelse(kr$eh=="h",0.1,0)
-p <- ggplot(kr,aes(x=pata2,y=rugalmassag,shape=eh,color=szin))
-p+geom_point()+labs(x="Ló sorszáma",y="Rugalmasság")+scale_color_manual("Pataszín",values=c("yellow","grey"))+scale_shape_manual("Első/hátsó láb",values = c(16,17))
-```
-```{r kemenyseg, echo=FALSE, warning=FALSE}
-library(ggplot2)
-load("kr.RData")
-kr$kemenyseg <- as.double(kr$kemenyseg)
-kr$pata2 <- kr$pata+ifelse(kr$eh=="h",0.1,0)
-p <- ggplot(kr,aes(x=pata2,y=kemenyseg,shape=eh,color=szin))
-p+geom_point()+labs(x="Ló sorszáma",y="Keménység")+scale_color_manual("Pataszín",values=c("yellow","grey"))+scale_shape_manual("Első/hátsó láb",values = c(16,17))
-```
